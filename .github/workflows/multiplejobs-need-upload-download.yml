@@ -23,7 +23,7 @@ jobs:
           uses: actions/download-artifact@v5
           with:
             name: dragon-artifact
-            path: dragon.txt
+            # path: dragon.txt
         - name: Grep and Cat Command
           run: |
             grep -i "dragon" dragon.txt
@@ -37,6 +37,6 @@ jobs:
           uses: actions/download-artifact@v5
           with:
             name: dragon-artifact
-            path: dragon.txt 
+            # path: dragon.txt 
         - name: List the files
           run: ls -ltra
