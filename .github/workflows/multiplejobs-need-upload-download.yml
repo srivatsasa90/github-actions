@@ -1,0 +1,42 @@
+name: Multi-Jobs-With-Need-Upload-Download
+on: push
+jobs:
+    install_run_job:
+        runs-on: ubuntu-latest
+        steps:
+        # - name: Checkout Repo
+        #   uses: actions/checkout@v6.0.2
+        - name: Executing Shell Script
+          run: |
+            sudo apt-get install cowsay -y
+            cowsay f dragon "Run for cover, I am a DRAGON...." >> dragon.txt
+        - name: Upload the artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: dragon-artifact
+            path: dragon.txt  
+    grep_and_cat_job:
+        needs: install_run_job
+        runs-on: ubuntu-latest
+        steps:
+        - name: Download the artifact
+          uses: actions/download-artifact@v5
+          with:
+            name: dragon-artifact
+            path: dragon.txt
+        - name: Grep and Cat Command
+          run: |
+            grep -i "dragon" dragon.txt
+            cat dragon.txt
+        
+    list_files_job:
+        needs: grep_and_cat_job
+        runs-on: ubuntu-latest
+        steps:
+        - name: Download the artifact
+          uses: actions/download-artifact@v5
+          with:
+            name: dragon-artifact
+            path: dragon.txt 
+        - name: List the files
+          run: ls -ltra
