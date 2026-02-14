@@ -1,4 +1,4 @@
-name: My First Workflow
+name: Shell Script Work Flow
 on: push
 jobs:
     first_job:
